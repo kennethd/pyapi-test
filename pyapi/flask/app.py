@@ -1,3 +1,14 @@
+"""
+This module provides a base Flask server, not yet configured for a specific API
+
+In non-monorepo situations this module might be distributed org-wide to provide
+a consistent implementation of all Flask-based services, which would be
+implemented in dependant repos.
+
+For this project, the separation is only at the module-level.  `pyapi.flask.api`
+uses the app factory & helpers defined here to create an API server, which is
+then configured with implementation found in `pyapi.flask.blueprints`
+"""
 import argparse
 import logging
 import os

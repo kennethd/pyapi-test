@@ -7,7 +7,7 @@ import sys
 if not os.environ.get("VIRTUAL_ENV"):
     sys.exit("No active virtualenv")
 
-from pyapi.flask.app import configured_app, FlaskAppArgParser
+from pyapi.flask.api import configured_app, FlaskAppArgParser
 # instantiate a STDERR console logger from app.py for devs
 from pyapi.flask.log import get_flask_logger
 
