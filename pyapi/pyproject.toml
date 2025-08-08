@@ -46,7 +46,7 @@ script-files = [
 version = {file = "VERSION"}
 
 [tool.setuptools.packages.find] 
-include = ["pyapilib", "pyapilib*"]
+include = ["pyapi", "pyapi*"]
 
 [tool.coverage.report]
 skip_empty = true  # exclude empty __init__.py files from report
