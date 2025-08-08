@@ -62,14 +62,14 @@ namespace :venv do
       "python3 -m venv ./venv#{PY3VER}",
       ". ./venv#{PY3VER}/bin/activate",
       "python3 -m pip install -U pip setuptools wheel build",
-      "pip install #{editable_mode} #{VENV_INSTALL_DIR}"
+      "pip install #{editable_mode} ."
     ].join(" && ")
     sh(cmds)
 
     if !args.dev_mode.nil?
       cmds = [
         ". ./venv#{PY3VER}/bin/activate",
-        "pip install #{VENV_INSTALL_DIR}[dev]"
+        "pip install .[dev]"
       ].join(" && ")
       sh(cmds)
     end
@@ -87,7 +87,7 @@ namespace :venv do
   task :install_opts do
     return if !OPT_DEPS
 
-    install_list = OPT_DEPS.map { |opt| "#{VENV_INSTALL_DIR}[#{opt}]" }.join(" ")
+    install_list = OPT_DEPS.map { |opt| ".[#{opt}]" }.join(" ")
     cmds = [
       ". ./venv#{PY3VER}/bin/activate",
       "pip install #{install_list}",

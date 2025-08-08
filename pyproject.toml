@@ -4,9 +4,9 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pyapi-test"
+name = "pyapi"
 description = "Python API frameworks libraries & utilities"
-license = {text = "Proprietary"}
+license = "MIT"
 readme = "README.md"
 requires-python = ">=3.11"
 dynamic = ["version"]
@@ -34,19 +34,24 @@ dev = [
 # if adding a new optional-dependencies key, please also add it to OPT_DEPS in Rakefile
 flask = ["Flask"]
 mongo = ["pymongo"]
-pdf = ["ReportLab>=1.2"]
-postgres = ["psycopg"]
+#pdf = ["ReportLab>=1.2"]
+#postgres = ["psycopg"]
 redis = ["redis"]
 
 [tool.setuptools]
+packages = [
+    "pyapi",
+    "pyapi.flask",
+    "pyapi.testing"
+]
 script-files = [
 ]
 
 [tool.setuptools.dynamic]
 version = {file = "VERSION"}
 
-[tool.setuptools.packages.find] 
-include = ["pyapi", "pyapi*"]
+[tool.setuptools.package-data]
+pyapi = ["VERSION"]
 
 [tool.coverage.report]
 skip_empty = true  # exclude empty __init__.py files from report

@@ -4,6 +4,11 @@ This package provides tested reference implementations of a few popular Python
 API servers, and some basic tooling for making performance comparisons between
 them, and soon, comparisons between them running via a few popular WSGI servers.
 
+## tests
+
+The same API has been implemented for each of the frameworks, and all share a
+common implementation, thinly exposed via API.
+
 ## development environment
 
 Example performance results have been obtained on dev machine with specs:
