@@ -19,4 +19,11 @@ Task orchestration is provided via Rake, a make-like build system from the
 ruby community.  Locally I am using rake version 13.0.6 w/ruby 3.1.2p20.
 
 
+## getting started
+
+To create a local virtualenv with this package and all dependencies:
+```sh
+$ rake venv:install venv:test
+```
+
 
