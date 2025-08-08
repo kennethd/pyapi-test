@@ -1,0 +1,53 @@
+# https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyapi-test"
+description = "Python API frameworks libraries & utilities"
+license = {text = "Proprietary"}
+readme = "README.md"
+requires-python = ">=3.11"
+dynamic = ["version"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "PyYAML",
+    "httpx",
+    "requests>2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest", 
+    "pytest-cov", 
+    "flake8",
+    "locust",
+    "twine",
+]
+
+#   * * *   REMINDER   * * *
+# if adding a new optional-dependencies key, please also add it to OPT_DEPS in Rakefile
+flask = ["Flask"]
+mongo = ["pymongo"]
+pdf = ["ReportLab>=1.2"]
+postgres = ["psycopg"]
+redis = ["redis"]
+
+[tool.setuptools]
+script-files = [
+]
+
+[tool.setuptools.dynamic]
+version = {file = "VERSION"}
+
+[tool.setuptools.packages.find] 
+include = ["pyapilib", "pyapilib*"]
+
+[tool.coverage.report]
+skip_empty = true  # exclude empty __init__.py files from report
+show_missing = true  # include missing lines in coverage report
