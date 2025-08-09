@@ -22,7 +22,11 @@ Example performance results have been obtained on dev machine with specs:
 
 Task orchestration is provided via Rake, a make-like build system from the
 ruby community.  Locally I am using rake version 13.0.6 w/ruby 3.1.2p20.
-
+Debian packages to install are:
+```
+ii  rake   13.0.6-3  all    ruby make-like utility
+ii  ruby   1:3.1     amd64  Interpreter of object-oriented scripting language Ruby (default version)
+```
 
 ## getting started
 
@@ -30,5 +34,16 @@ To create a local virtualenv with this package and all dependencies:
 ```sh
 $ rake venv:install venv:test
 ```
+
+
+## quirks
+
+A few personal conventions that may require explanation:
+
+  * `pip-freeze-3.11.txt` is not used for installation, has nothing to do with
+    the purpose of a `requirements.txt` file or anything like that.  For
+    library packages, dependencies are declared in `pyproject.toml` or similar.
+    The only purpose of `pip-freeze-3.*.txt` (which is recreated every time
+    `rake venv:install` is run) is to surface dependenceny changes at the PR level.
 
 
