@@ -9,7 +9,7 @@ into a response
 """
 from logging import getLogger
 
-from flask import Blueprint, jsonify, make_response, request
+from flask import Blueprint, make_response, request
 
 log = getLogger(__name__)
 
@@ -17,7 +17,7 @@ FlaskAPIv1 = Blueprint('v1', __name__, url_prefix='/v1')
 FlaskAPIv2 = Blueprint('v2', __name__, url_prefix='/v2')
 
 @FlaskAPIv1.route('/hello', methods=['GET', 'POST'])
-def hello():
+def hello_v1():
     name = request.args.get("name") or request.form.get("name") or "World"
     response = make_response(f"Hello {name}!")
     response.mimetype = "text/plain"
@@ -25,7 +25,7 @@ def hello():
 
 
 @FlaskAPIv2.route('/hello', methods=['GET', 'POST'])
-def hello():
+def hello_v2():
     name = request.args.get("name") or request.form.get("name") or "World"
     response = make_response(f"<blink>Hello {name}!</blink>")
     return response

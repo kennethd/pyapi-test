@@ -19,13 +19,27 @@ import os
 
 from flask.logging import default_handler
 
-LOG_LEVEL = os.environ.get('LOG_LEVEL', logging.INFO)
 
-def get_flask_logger(name, level=LOG_LEVEL):
-    log = logging.getLogger(name)
-    log.setLevel(level)
+log = logging.getLogger(__name__)
+
+
+def add_flask_log_handler(name, debug=False):
+    if debug:
+        level = logging.DEBUG
+    else:
+        level = logging.INFO
     default_handler.setLevel(level)
-    log.addHandler(default_handler)
-    log.debug(f'get_flask_logger: logging configured @ level {LOG_LEVEL}')
+
+    # instead of app-specific logger, just add flask handler to root logger
+    # https://flask.palletsprojects.com/en/stable/logging/#other-libraries
+    #log = logging.getLogger(name)
+    #log.setLevel(level)
+    #log.addHandler(default_handler)
+
+    root = logging.getLogger()
+    root.setLevel(level)
+    root.addHandler(default_handler)
+
+    log.debug(f'add_flask_log_handler: logging configured @ level {level}')
     return log
 

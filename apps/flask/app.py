@@ -2,21 +2,20 @@
 import os
 import sys
 
-# developer app server, suitable for running on local machine during development
+# developer app server, only suitable for running on local machine during development
 
 if not os.environ.get("VIRTUAL_ENV"):
     sys.exit("No active virtualenv")
 
-from pyapi.flask.api import configured_app, FlaskAppArgParser
+from pyapi.flask.api import configured_app, FlaskApiArgParser
 # instantiate a STDERR console logger from app.py for devs
-from pyapi.flask.log import get_flask_logger
+from pyapi.flask.log import add_flask_log_handler
 
 APP_NAME = 'flaskapi'
 
-log = get_flask_logger(APP_NAME)
+args = FlaskApiArgParser.parse_args()
+log = add_flask_log_handler(APP_NAME, args.debug)
 log.info(f"Active virtualenv is {os.environ['VIRTUAL_ENV']}")
-
-args = FlaskAppArgParser.parse_args()
 log.debug(f"args: {args}")
 
 app = configured_app(APP_NAME, debug=args.debug, config_module=args.config,
