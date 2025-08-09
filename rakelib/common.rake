@@ -26,7 +26,8 @@ def run_cmd(cmd)
   # run cmd in subshell & return STDOUT
   # fails if command exits with non-zero status
   # if command produces output on STDERR, echos cmd STDERR to current STDERR
-  STDERR.puts "run_cmd: #{cmd}"
+  # if you want to see the streaming output of the commands, use sh() instead
+  info("run_cmd: #{cmd}")
   stdout, stderr, status = Open3.capture3(cmd)
   if status.to_s !~ /exit 0/
     fail("COMMAND FAILED (#{status}) #{cmd}")

@@ -15,7 +15,7 @@ task :require_no_active_venv do
 end
 
 task :rmrf_venv do
-  sh("rm -rf ./venv* *.egg-info")
+  run_cmd("rm -rf ./venv* *.egg-info")
 end
 
 namespace :venv do
@@ -32,7 +32,7 @@ namespace :venv do
       "rm -rf ./build ./dist"
     ].join(" && ")
 
-    sh(cmds)
+    run_cmd(cmds)
   end
 
   desc "clean as well as destroy virtualenv"

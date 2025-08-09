@@ -46,4 +46,16 @@ A few personal conventions that may require explanation:
     The only purpose of `pip-freeze-3.*.txt` (which is recreated every time
     `rake venv:install` is run) is to surface dependenceny changes at the PR level.
 
+  * I am a bit of a cranky old dude who edits with vim, and there is no
+    benefit of type hinting for me.  I am a big fan of TypeScript, which
+    introduces a much needed vector for catching errors in front-end apps, but
+    in Python it is just ugly noise making coders subservient to their IDEs.
+    That said, if your team uses it, I am perfectly fine adhering to standards.
+    In any case, both front-end and server-side apps should be well tested.
+
+  * One of my favorite things about Rake is the transparency of what it is
+    doing, I very much prefer my team to know how to interact with project
+    components from the command line, and `rakelib` provides a valuable
+    reference while reinforcing that knowledge each time you run it by echoing
+    commands it is running back to you.
 
