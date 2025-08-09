@@ -5,7 +5,7 @@ from unittest import mock
 
 import pytest
 
-from pyapi.flask.app import FlaskAppArgParser, configured_app
+from pyapi.flask.app import STATIC_DIR, FlaskAppArgParser, configured_app
 from pyapi.testing.base import PyAPITestCase
 from pyapi.testing.fixtures import mock_stderr
 
@@ -19,6 +19,7 @@ ARG_DEFAULTS = {
     "proxy_fix": False,
 }
 
+
 class TestFlaskApp(PyAPITestCase):
 
     @classmethod
@@ -26,6 +27,7 @@ class TestFlaskApp(PyAPITestCase):
         app = configured_app(app_name, **kwargs)
         client = app.test_client()
         return (app, client)
+
 
     def test_configured_app(self):
         app, client = self._get_configured_app()
@@ -37,12 +39,22 @@ class TestFlaskApp(PyAPITestCase):
         response = client.get('/')
         self.assertEqual(response.status_code, 200)
 
+
     def test_heartbeat(self):
-        app, client = self._get_configured_app()
+        _, client = self._get_configured_app()
         response = client.get('/heartbeat')
         self.assertEqual(response.status_code, 200)
         expect = {"testapp-server": "ok"}
         self.assertEqual(response.json, expect)
+
+
+    def test_static_folder(self):
+        # verify static files are being packaged correctly with app
+        app, client = self._get_configured_app()
+        self.assertEqual(STATIC_DIR, app.static_folder)
+        response = client.get('/favicon.ico')
+        self.assertEqual(response.status_code, 200)
+
 
     def test_flask_app_arg_parser(self):
         args = FlaskAppArgParser.parse_args(["--port=9999", "--debug"])

@@ -51,7 +51,7 @@ script-files = [
 version = {file = "VERSION"}
 
 [tool.setuptools.package-data]
-pyapi = ["VERSION"]
+pyapi = ["VERSION", "static/*.ico", "static/*.js", "static/*.css", "static/*.png"]
 
 [tool.coverage.report]
 skip_empty = true  # exclude empty __init__.py files from report

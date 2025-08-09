@@ -12,13 +12,20 @@ then configured with implementation found in `pyapi.flask.blueprints`
 import argparse
 import logging
 import os
+from pathlib import Path
 import tempfile
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_from_directory
 from werkzeug.middleware.proxy_fix import ProxyFix
 from werkzeug.middleware.profiler import ProfilerMiddleware
 
 log = logging.getLogger(__name__)
+
+
+# default is '/home/kenneth/git/pyapi-test/static'
+# for distro with package, 'static' must be in 'pyapi' subdirectory
+PROJECT_DIR = Path(__file__).parent.parent.parent.absolute()
+STATIC_DIR = os.path.sep.join([str(PROJECT_DIR), 'pyapi', 'static'])
 
 # FLASKAPP_ARGPARSE_DEFAULTS can be useful when testing custom FlaskAppArgParser implementations:
 #   args = StrikeReportsArgParser.parse_args(['--port', '9999'])
@@ -33,6 +40,7 @@ FLASKAPP_ARGPARSE_DEFAULTS = {
     'profiler': False,
     'proxy_fix': False,
 }
+
 
 FlaskAppArgParser = argparse.ArgumentParser(description="Arg parser for configured_app()")
 FlaskAppArgParser.add_argument("--config", type=str,
@@ -67,6 +75,8 @@ def configured_app(import_name, debug=False, config_module=None,
 
     FLASKAPP_CONFIG envvar module, values will override those in config_module
     """
+    flask_kwargs['static_folder'] = STATIC_DIR
+
     app = Flask(import_name, **flask_kwargs)
     app.secret_key = os.urandom(24)
     if sqlalchemy:
@@ -98,6 +108,12 @@ def configured_app(import_name, debug=False, config_module=None,
     @app.route('/heartbeat')
     def heartbeat():
         return jsonify({"{}-server".format(import_name): "ok"})
+
+    # ideally served directly from nginx/whatever but to avoid 404s in dev
+    @app.route('/favicon.ico')
+    def favicon():
+        return send_from_directory(STATIC_DIR, 'favicon.ico',
+                                   mimetype='image/vnd.microsoft.icon')
 
     return app
 
