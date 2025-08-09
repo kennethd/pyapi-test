@@ -105,7 +105,7 @@ namespace :venv do
     x = args.exit_on_fail.nil? ? "" : "--exitfirst"
     pdb = args.pdb.nil? ? "" : "--pdb"
     env = "PYTHONDONTWRITEBYTECODE=1"
-    opts = "--cov=#{APP_MODNAME} --verbose --showlocals #{x} #{pdb}"
+    opts = "--cov=#{APP_MODNAME} --verbose --showlocals  -p no:cacheprovider #{x} #{pdb}"
     sh(". ./venv#{PY3VER}/bin/activate && #{env} pytest #{opts} ./tests")
     sh(". ./venv#{PY3VER}/bin/activate && pyflakes ./#{APP_MODNAME}")
   end
