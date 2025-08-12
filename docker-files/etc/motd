@@ -11,26 +11,34 @@ Exposed As | Internal | Process Name     | Notes
 -----------+----------+------------------+-----------------------------------
            | 9001     | supervisor       | monitor/manage supervisor processes
 -----------+----------+------------------+-----------------------------------
-9001       | 9901     | supervisor-nginx proxy to internal 9001
+9001       | 9901     | supervisor-nginx | proxy to internal 9001
 -----------+----------+------------------+-----------------------------------
            |          | locust           | monitor locust output
 -----------+----------+------------------+-----------------------------------
            |          | flower           | monitor async celery processes
 -----------+----------+------------------+-----------------------------------
-9099       | 9099     | uwsgi-flask      | 
+9099       | unix     | uwsgi-flask      | nginx proxies unix socket
 -----------+----------+------------------+-----------------------------------
-9199       | 9199     | uwsgi-fastapi    |
+9199       | unix     | uwsgi-fastapi    | nginx proxies unix socket
 -----------+----------+------------------+-----------------------------------
-9099       | 9299     | uwsgi-tornado    |
+9299       | unix     | uwsgi-tornado    | nginx proxies unix socket
 -----------+----------+------------------+-----------------------------------
-9099       | 9399     | uwsgi-django     |
+9399       | unix     | uwsgi-django     | nginx proxies unix socket
 -----------+----------+------------------+-----------------------------------
-9098       | 9098     | gunicorn-flask   | 
+9098       | unix     | gunicorn-flask   | nginx proxies unix socket
 -----------+----------+------------------+-----------------------------------
-9198       | 9198     | gunicorn-fastapi |
+9198       | unix     | gunicorn-fastapi | nginx proxies unix socket
 -----------+----------+------------------+-----------------------------------
-9098       | 9298     | gunicorn-tornado |
+9298       | unix     | gunicorn-tornado | nginx proxies unix socket
 -----------+----------+------------------+-----------------------------------
-9098       | 9398     | gunicorn-django  |
+9398       | unix     | gunicorn-django  | nginx proxies unix socket
+-----------+----------+------------------+-----------------------------------
+9096       | unix     | uvicorn-flask    | nginx proxies unix socket
+-----------+----------+------------------+-----------------------------------
+9197       | unix     | uvicorn-fastapi  | nginx proxies unix socket
+-----------+----------+------------------+-----------------------------------
+9297       | unix     | uvicorn-tornado  | nginx proxies unix socket
+-----------+----------+------------------+-----------------------------------
+9397       | unix     | uvicorn-django   | nginx proxies unix socket
 -----------+----------+------------------+-----------------------------------
 
