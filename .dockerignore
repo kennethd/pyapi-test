@@ -1,0 +1,11 @@
+/.bash_logout
+/.coverage
+/.dockerignore
+/.git
+/.gitignore
+/Dockerfile
+/build
+/docker-compose.yaml
+# cannot ignore directory & reference with COPY /docker-files
+/pyapi.egg-info
+/venv*

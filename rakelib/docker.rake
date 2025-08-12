@@ -25,7 +25,7 @@ namespace :docker do
   end
 
 
-  desc "build #{DOCKER_REPO_NAME} image"
+  #not used for this project#desc "build #{DOCKER_REPO_NAME} image"
   task :build, [:tag] => ["docker:require_linux","git:archive"] do |t, args|
     git_branch = git_current_branch
     tag = resolve_docker_tag(args.tag)

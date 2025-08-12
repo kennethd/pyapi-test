@@ -1,0 +1,14 @@
+
+services:
+  pyapi:
+    image: pyapi:bookworm-slim
+    build: .
+    ports:
+      - ${PYAPI_TEST_LISTEN_PORT-8080}:80
+      - 9001:9901
+    volumes:
+      - data:/app/pyapi-test-data
+
+volumes:
+  data:
+

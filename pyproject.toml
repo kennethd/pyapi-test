@@ -16,9 +16,13 @@ classifiers = [
 ]
 
 dependencies = [
+    "Flask",
     "PyYAML",
+    "fastapi",
     "httpx",
+    "locust",
     "requests>2",
+    "tornado",
 ]
 
 [project.optional-dependencies]
@@ -26,17 +30,8 @@ dev = [
     "pytest", 
     "pytest-cov", 
     "flake8",
-    "locust",
     "twine",
 ]
-
-#   * * *   REMINDER   * * *
-# if adding a new optional-dependencies key, please also add it to OPT_DEPS in Rakefile
-flask = ["Flask"]
-mongo = ["pymongo"]
-#pdf = ["ReportLab>=1.2"]
-#postgres = ["psycopg"]
-redis = ["redis"]
 
 [tool.setuptools]
 packages = [
@@ -44,6 +39,7 @@ packages = [
     "pyapi.flask",
     "pyapi.testing"
 ]
+
 script-files = [
 ]
 
@@ -51,7 +47,13 @@ script-files = [
 version = {file = "VERSION"}
 
 [tool.setuptools.package-data]
-pyapi = ["VERSION", "static/*.ico", "static/*.js", "static/*.css", "static/*.png"]
+pyapi = [
+    "VERSION",
+    "static/*.css",
+    "static/*.ico",
+    "static/*.js",
+    "static/*.png",
+]
 
 [tool.coverage.report]
 skip_empty = true  # exclude empty __init__.py files from report
