@@ -19,9 +19,6 @@ common implementation, thinly exposed via API.
   * Add locust real-time/live support
   * Add profiler support, output to docker volume
   * Add Grafana(?) interface & timescale db for comparisons
-  * Allow installing real-world project into venv via git/archive
-  * Allow specifying custom `realproj.app.factory` app factory function for instantiation
-  * Allow specifying custom `script-files` to run from `./venv*/bin` (locust, etc)
   * Upgrade to new debian stable released 2025-08-12
 
 
