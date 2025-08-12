@@ -92,23 +92,6 @@ maximizing the amount of projects using the same interface, even if not the
 same implementation is huge for efficiency, at least I find it to be for my
 personal projects which span years of evolving preferences (it probably
 doesn't scale to "enterprise" well, but neither do I).
-```
-kenneth@fado ~/git/pyapi-test (main) $ rake -T
-rake docker:clean[rm_volume]      # shutdown & remove pyapi container & remove pyapi-test image
-rake docker:clean_all             # reclaim space from old docker objects  WARNING: Destroys things
-rake docker:sysinfo               # display info about docker objects on system
-rake git:archive[branch,dest]     # create tar.gz distribution of working dir
-rake git:up[remote,branch]        # does git pull --rebase in a manner consistent with never having merge commits
-rake pkg:bumpmaj[tag_message]     # bump major version part of MAJ.MIN.REV version string & tag repo
-rake pkg:bumpmin[tag_message]     # bump minor version part of MAJ.MIN.REV version string & tag repo
-rake pkg:bumprev[tag_message]     # bump revision part of MAJ.MIN.REV version string & tag repo
-rake pkg:showver                  # print package version
-rake venv:clean                   # clean up working dir
-rake venv:install[dev_mode]       # Create venv & pip install package & dependencies
-rake venv:pip_freeze              # used to maintain the pip-freeze.txt file
-rake venv:test[exit_on_fail,pdb]  # run tests & linter
-rake venv:uninstall               # clean as well as destroy virtualenv
-```
 
 
 ## quirks
