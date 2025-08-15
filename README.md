@@ -2,7 +2,8 @@
 
 This package provides tested reference implementations of a few popular Python
 API servers, and some basic tooling for making performance comparisons between
-them, and soon, comparisons between them running via a few popular WSGI servers.
+them, and soon, comparisons between them running via a few popular WSGI & ASGI
+servers.
 
 Why? It's been a long time since I geeked out on this stuff, and it's overdue.
 
@@ -13,10 +14,12 @@ common implementation, thinly exposed via API.
 
 ## todo/roadmap
 
-  * Add more frameworks support: fastapi, tornado, django to start
-  * Add more WSGI server support: gunicorn, uvicorn
-  * Store performance data on docker volume for comparison `framework-wsgiserver-date-githash-note`
   * Add locust real-time/live support
+  * Add async endpoints/celery task runner
+  * Add more frameworks support: fastapi, tornado, django to start
+  * Add more WSGI/ASGI server support: gunicorn, uvicorn
+  * Store performance data on docker volume for comparison `framework-wsgiserver-date-githash-note`
+  * Comparative tests with & without 'use epoll' in `nginx.conf`
   * Add profiler support, output to docker volume
   * Add Grafana(?) interface & timescale db for comparisons
   * Upgrade to new debian stable released 2025-08-12
@@ -28,6 +31,8 @@ To build the docker image & launch a container:
 ```sh
 $ docker-compose up
 ```
+Visit http://localhost:9001 for access to supervisor admin.
+
 
 ## development environment
 

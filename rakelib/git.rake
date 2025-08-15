@@ -2,6 +2,10 @@ def git_current_branch()
   return run_cmd("git branch --show-current")
 end
 
+def git_current_hash()
+  return run_cmd("git rev-parse --short HEAD")
+end
+
 def git_newest_tag()
   hash = run_cmd("git rev-list --tags --max-count=1")
   return run_cmd("git describe --tags '#{hash}'")

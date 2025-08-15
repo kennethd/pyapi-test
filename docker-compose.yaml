@@ -1,14 +1,33 @@
 
 services:
   pyapi:
-    image: pyapi:bookworm-slim
+    image: pyapi-test:${PYAPI_TEST_VERSION:-bookworm-slim}
+    container_name: pyapi-test
     build: .
     ports:
-      - ${PYAPI_TEST_LISTEN_PORT-8080}:80
-      - 9001:9901
+      - ${PYAPI_TEST_LISTEN_PORT:-8080}:80
+      - 9001:9001
+    environment:
+      BUILD_DATE: "${BUILD_DATE}"
+      GIT_BRANCH: "${GIT_BRANCH}"
+      GIT_HASH: "${GIT_HASH}"
+      PYAPI_TEST_LISTEN_PORT: "${PYAPI_TEST_LISTEN_PORT:-8080}"
+      PYAPI_TEST_UWSGI_FLASK_PORT: 9099
+      PYAPI_TEST_UWSGI_FASTAPI_PORT: 9098
+      PYAPI_TEST_UWSGI_TORNADO_PORT: 9097
+      PYAPI_TEST_UWSGI_DJANGO_PORT: 9096
+      PYAPI_TEST_GUNICORN_FLASK_PORT: 9199
+      PYAPI_TEST_GUNICORN_FASTAPI_PORT: 9198
+      PYAPI_TEST_GUNICORN_TORNADO_PORT: 9197
+      PYAPI_TEST_GUNICORN_DJANGO_PORT: 9196
+      PYAPI_TEST_UVICORN_FLASK_PORT: 9299
+      PYAPI_TEST_UVICORN_FASTAPI_PORT: 9298
+      PYAPI_TEST_UVICORN_TORNADO_PORT: 9297
+      PYAPI_TEST_UVICORN_DJANGO_PORT: 9296
     volumes:
       - data:/app/pyapi-test-data
 
 volumes:
   data:
+    name: pyapi-test-data
 

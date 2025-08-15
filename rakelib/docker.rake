@@ -26,6 +26,7 @@ namespace :docker do
 
 
   #not used for this project#desc "build #{DOCKER_REPO_NAME} image"
+  # intended for build-and-push-to-container-repo workflows
   task :build, [:tag] => ["docker:require_linux","git:archive"] do |t, args|
     git_branch = git_current_branch
     tag = resolve_docker_tag(args.tag)
@@ -37,9 +38,8 @@ namespace :docker do
       # "--progress plain",
       # --build-arg will not persist in container, but may be referenced in Dockerfile
       "--build-arg PY3VER=#{PY3VER}",
-      "--build-arg ARCHIVE_FILE=uh-libs-#{git_branch.sub("/", "-").downcase}.tar.gz",
-      "--build-arg #{DOCKER_ENV_VERSION}=#{tag}",
-      "--build-arg #{DOCKER_ENV_BUILD_DATE}=#{build_date}",
+      "--build-arg GIT_BRANCH=#{git_branch}",
+      "--build-arg BUILD_DATE=#{build_date}",
       "--tag #{DOCKER_REPO_NAME}:#{tag}",
       "."
     ].join(" ")
@@ -47,6 +47,26 @@ namespace :docker do
     Rake::Task["docker:rmi_untagged"].invoke
     Rake::Task["docker:sysinfo"].invoke
   end
+
+  desc "does docker-compose up in a consistent manner"
+  task :up, [:tag] => ["docker:require_linux"] do |t, args|
+    git_branch = git_current_branch
+    git_hash = git_current_hash
+    tag = resolve_docker_tag(args.tag)
+    build_date = Date.today.strftime("%Y-%m-%d")
+    cmd = [
+      "PY3VER=#{PY3VER}",
+      "GIT_BRANCH=#{git_branch}",
+      "GIT_HASH=#{git_hash}",
+      "BUILD_DATE=#{build_date}",
+      "PYAPI_TEST_VERSION=#{tag}",
+      "docker-compose up --build",
+    ].join(" ")
+    sh(cmd)
+    Rake::Task["docker:rmi_untagged"].invoke
+    Rake::Task["docker:sysinfo"].invoke
+  end
+
 
   desc "shutdown & remove #{DOCKER_CONTAINER_NAME} container & remove #{DOCKER_REPO_NAME} image"
   task :clean, [:rm_volume] do |t, args|
