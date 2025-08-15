@@ -3,7 +3,7 @@ This module provides a base Flask server, not yet configured for a specific API
 
 In non-monorepo situations this module might be distributed org-wide to provide
 a consistent implementation of all Flask-based services, which would be
-implemented in dependant repos.
+implemented in dependent repos.
 
 For this project, the separation is only at the module-level.  `pyapi.flask.api`
 uses the app factory & helpers defined here to create an API server, which is
@@ -101,9 +101,11 @@ def configured_app(import_name, debug=False, config_module=None,
         app.wsgi_app = ProfilerMiddleware(app.wsgi_app, profile_dir=pstat_dir)
 
     # Do not enable the ProxyFix without reading & understanding the manual
-    # https://werkzeug.palletsprojects.com/en/2.1.x/middleware/proxy_fix/
+    # https://flask.palletsprojects.com/en/stable/deploying/proxy_fix/
     if proxy_fix:
-        app.wsgi_app = ProxyFix(app.wsgi_app)
+        app.wsgi_app = ProxyFix(
+            app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
+        )
 
     @app.route('/heartbeat')
     def heartbeat():

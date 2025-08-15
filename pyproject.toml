@@ -19,10 +19,14 @@ dependencies = [
     "Flask",
     "PyYAML",
     "fastapi",
+    "gunicorn",
     "httpx",
     "locust",
     "requests>2",
     "tornado",
+    "uvicorn",
+    "uwsgi",
+    "uwsgitop",
 ]
 
 [project.optional-dependencies]
@@ -41,6 +45,7 @@ packages = [
 ]
 
 script-files = [
+    "bin/launch-supervisor-uwsgi",
 ]
 
 [tool.setuptools.dynamic]

@@ -23,6 +23,7 @@ common implementation, thinly exposed via API.
   * Add profiler support, output to docker volume
   * Add Grafana(?) interface & timescale db for comparisons
   * Upgrade to new debian stable released 2025-08-12
+  * Explore uwsgi-stats server
 
 
 ## getting started
@@ -32,6 +33,10 @@ To build the docker image & launch a container:
 $ docker-compose up
 ```
 Visit http://localhost:9001 for access to supervisor admin.
+
+You should also be able to interact with the apps:
+
+  * uwsgi-flask: http://localhost:9099/v1/hello
 
 
 ## development environment
