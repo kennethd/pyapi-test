@@ -65,7 +65,7 @@ Debian packages to install are called `rake` and `ruby`.
 
 To create a local virtualenv with this package and all dependencies:
 ```sh
-$ rake venv:install venv:test
+$ rake venv:install\[dev\] venv:test
 ```
 
 

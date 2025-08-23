@@ -85,15 +85,15 @@ namespace :venv do
   end
 
   task :install_opts do
-    return if !OPT_DEPS
-
-    install_list = OPT_DEPS.map { |opt| ".[#{opt}]" }.join(" ")
-    cmds = [
-      ". ./venv#{PY3VER}/bin/activate",
-      "pip install #{install_list}",
-      "deactivate"
-    ].join(" && ")
-    sh(cmds)
+    if not OPT_DEPS.empty?
+      install_list = OPT_DEPS.map { |opt| ".[#{opt}]" }.join(" ")
+      cmds = [
+        ". ./venv#{PY3VER}/bin/activate",
+        "pip install #{install_list}",
+        "deactivate"
+      ].join(" && ")
+      sh(cmds)
+    end
   end
 
   desc "run tests & linter"
