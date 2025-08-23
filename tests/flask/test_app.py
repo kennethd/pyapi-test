@@ -16,15 +16,18 @@ ARG_DEFAULTS = {
     "ssl_key": "",
     "ssl_crt": "",
     "profiler": False,
+    "profiler_datadir": "",
     "proxy_fix": False,
 }
+
+APP_NAME = "test-flaskapp"
 
 
 class TestFlaskApp(PyAPITestCase):
 
     @classmethod
-    def _get_configured_app(cls, app_name="testapp", **kwargs):
-        app = configured_app(app_name, **kwargs)
+    def _get_configured_app(cls, **kwargs):
+        app = configured_app(APP_NAME, **kwargs)
         client = app.test_client()
         return (app, client)
 
@@ -44,9 +47,26 @@ class TestFlaskApp(PyAPITestCase):
         _, client = self._get_configured_app()
         response = client.get('/heartbeat')
         self.assertEqual(response.status_code, 200)
-        expect = {"testapp-server": "ok"}
+        expect = {f"{APP_NAME}-server": "ok"}
         self.assertEqual(response.json, expect)
 
+
+    def test_factory_args_propagate_to_app(self):
+        factory_args = {
+            "debug": True,
+            "profiler": True,
+            "config_module": "pyapi.testing.config",
+            "sqlalchemy": True,
+            "profiler_datadir": "/tmp",
+        }
+
+        app, client = self._get_configured_app(**factory_args)
+        self.assertTrue(app.debug)
+        self.assertTrue(app.config["PROFILE"])
+        # TEST_MODE set by pyapi.testing.config
+        self.assertTrue(app.config["TEST_MODE"])
+        # set by combo of DEBUG + sqlalchemy=True
+        self.assertTrue(app.config["SQLALCHEMY_ECHO"])
 
     def test_static_folder(self):
         # verify static files are being packaged correctly with app
@@ -61,10 +81,7 @@ class TestFlaskApp(PyAPITestCase):
         expect = argparse.Namespace(**ARG_DEFAULTS)
         expect.port = 9999
         expect.debug = True
-        #self.assertEqual(args, expect)
-        # verify manually passing params to parse_args works like this too
-        ##TODOargs = FlaskAppArgParser.parse_args(["--port", "9999", "--debug"])
-        ##TODOself.assertEqual(args, expect)
+        self.assertEqual(args, expect)
 
         # don't write confusing errors to terminal output
         with mock_stderr() as _stderr:

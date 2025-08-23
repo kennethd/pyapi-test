@@ -45,7 +45,6 @@ packages = [
 ]
 
 script-files = [
-    "bin/launch-supervisor-uwsgi",
 ]
 
 [tool.setuptools.dynamic]

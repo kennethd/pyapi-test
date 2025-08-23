@@ -18,8 +18,8 @@ log = add_flask_log_handler(APP_NAME, args.debug)
 log.info(f"Active virtualenv is {os.environ['VIRTUAL_ENV']}")
 log.debug(f"args: {args}")
 
-app = configured_app(APP_NAME, debug=args.debug, config_module=args.config,
-                     profiler=args.profiler, proxy_fix=args.proxy_fix)
+app = configured_app(APP_NAME, debug=args.debug, proxy_fix=args.proxy_fix,
+                     profiler=args.profiler, profiler_datadir=args.profiler_datadir)
 log.debug(f"app: {app}")
 
 if args.https:

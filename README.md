@@ -7,6 +7,12 @@ servers.
 
 Why? It's been a long time since I geeked out on this stuff, and it's overdue.
 
+## goals
+
+  * comparison of WSGI/ASGI frameworks
+  * comparison of WSGI/ASGI servers
+  * exploration of Python profilers, performance analysis tools, load testers
+
 ## tests
 
 The same API has been implemented for each of the frameworks, and all share a
@@ -18,10 +24,10 @@ common implementation, thinly exposed via API.
   * Add async endpoints/celery task runner
   * Add more frameworks support: fastapi, tornado, django to start
   * Add more WSGI/ASGI server support: gunicorn, uvicorn
-  * Store performance data on docker volume for comparison `framework-wsgiserver-date-githash-note`
-  * Comparative tests with & without 'use epoll' in `nginx.conf`
+  * Store performance data on docker volume for comparison
   * Add profiler support, output to docker volume
   * Add Grafana(?) interface & timescale db for comparisons
+  * Comparative tests with & without 'use epoll' in `nginx.conf`
   * Upgrade to new debian stable released 2025-08-12
   * Explore uwsgi-stats server
 

@@ -9,12 +9,14 @@ from pyapi.testing.base import PyAPITestCase
 CONTENT_TYPE_TEXT_HTML = 'text/html; charset=utf-8'
 CONTENT_TYPE_TEXT_PLAIN = 'text/plain; charset=utf-8'
 
+APP_NAME = "test-flaskapp"
+
 
 class TestFlaskApi(PyAPITestCase):
 
     @classmethod
-    def _get_configured_app(cls, app_name="testapi", **kwargs):
-        app = configured_app(app_name, **kwargs)
+    def _get_configured_app(cls):
+        app = configured_app(APP_NAME)
         client = app.test_client()
         return (app, client)
 
