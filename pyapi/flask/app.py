@@ -111,7 +111,7 @@ def configured_app(import_name, debug=False, config_module=None,
     if profiler:
         app.config["PROFILE"] = True
         pstat_dir = profiler_datadir or tempfile.mkdtemp()
-        log.debug("PROFILER writing pstat files to {}".format(pstat_dir))
+        log.info("PROFILER writing pstat files to {}".format(pstat_dir))
         app.wsgi_app = ProfilerMiddleware(app.wsgi_app, profile_dir=pstat_dir)
 
     # Do not enable the ProxyFix without reading & understanding the manual
